@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.10/dist/vue.js"></script>
+    <title>App météo VUE JS</title>
+</head>
+<body>
+
+    <main id="app">
+
+        <header class="header">
+            <h1 class="header__title">Votre météo</h1>
+            <input v-model="input_CP" v-on:keyup="testInput" class="header__input" placeholder="83470" type="text" name="" id="">
+        </header>
+
+        <footer>
+            
+        </footer>
+
+    </main>
+    
+</body>
+
+<script>
+    const app = new Vue({
+      el: '#app',
+      data: {
+        date : null,
+        temps : "Soleil",
+        input_CP : "",
+        localisation : "83470"
+      },
+      methods : {
+        testInput(){
+            if (this.input_CP.length == 5){
+                alert("CP OK")
+                alert(typeof this.input_CP)
+            }
+            else {
+                console.log(this.input_CP);
+            }
+        }
+      }
+    })
+</script>
+
+</html>

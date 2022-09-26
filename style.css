@@ -1,0 +1,30 @@
+body {
+    background-color: whitesmoke;
+}
+
+main {
+    background-color:lightyellow;
+    height: 70vh;
+    min-width: 400px;
+    width: 50vw;
+    border-radius: 20px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.header__title{
+    text-align: center;
+}
+
+.header__input{
+    box-shadow: 3px 2px 15px rgb(147, 147, 147);
+    margin: auto;
+    display: block;
+    border: none;
+    width: 80%;
+    text-align: center;
+    height: 40px;
+    border-bottom: 1px solid black;
+}
