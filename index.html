@@ -18,7 +18,10 @@
         </header>
 
         <section>
-            {{ temps }}
+            <p v-if="temps">
+                {{ temps }}
+                La température est de : {{ temperature }}°c
+            </p>
         </section>
 
         <footer>
@@ -34,21 +37,27 @@
       el: '#app',
       data: {
         date : `${new Date().getDate()} / 0${new Date().getMonth() + 1 } / ${new Date().getFullYear()}`,
-        temps : "Soleil",
+        temps : "",
+        temperature : "",
         name_city : "",
         localisation : "83470",
         code_API : "e13fd10c550e2ab6672e3238e4105145"
       },
       methods : {
         testInput(){
-            if (this.name_city.length > 3){
-                fetch(`https://api.openweathermap.org/data/2.5/weather?q=${this.name_city}, fr&appid=e13fd10c550e2ab6672e3238e4105145&lang=fr`)
+            if (this.name_city.length >= 3){
+                fetch(`https://api.openweathermap.org/data/2.5/weather?q=${this.name_city}, fr&appid=e13fd10c550e2ab6672e3238e4105145&lang=fr&units=metric`)
                 .then(response => response.json())
                 .then(json => {
+                    console.log(json);
                     console.log(json.weather[0]["description"])
                     this.temps = json.weather[0]["description"]
+                    this.temperature = json.main["temp"]
                 })
-                
+                .catch( err => {
+                    
+                })
+
             }
             else {
                 console.log(this.name_city);
