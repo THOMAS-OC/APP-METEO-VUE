@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/vue@2.7.10/dist/vue.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js" integrity="sha512-odNmoc1XJy5x1TMVMdC7EMs3IVdItLPlCeL5vSUPN2llYKMJ2eByTTAIiiuqLg+GdNr9hF6z81p27DArRFKT7A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <title>App météo VUE JS</title>
 </head>
 <body>
@@ -15,8 +14,12 @@
 
         <header class="header">
             <h1 class="header__title">Votre météo du {{ date }}</h1>
-            <input v-model="input_CP" v-on:keyup="testInput" class="header__input" placeholder="83470" type="text" name="" id="">
+            <input v-model="name_city" v-on:keyup="testInput" class="header__input" placeholder="83470" type="text" name="" id="">
         </header>
+
+        <section>
+            {{ temps }}
+        </section>
 
         <footer>
             
@@ -30,20 +33,25 @@
     const app = new Vue({
       el: '#app',
       data: {
-        date : `${new Date().getDate()} / ${new Date().getMonth() + 1 } / ${new Date().getFullYear()}`,
+        date : `${new Date().getDate()} / 0${new Date().getMonth() + 1 } / ${new Date().getFullYear()}`,
         temps : "Soleil",
-        input_CP : "",
+        name_city : "",
         localisation : "83470",
         code_API : "e13fd10c550e2ab6672e3238e4105145"
       },
       methods : {
         testInput(){
-            if (this.input_CP.length == 5){
-                alert("CP OK")
-                alert(typeof this.input_CP)
+            if (this.name_city.length > 3){
+                fetch(`https://api.openweathermap.org/data/2.5/weather?q=${this.name_city}, fr&appid=e13fd10c550e2ab6672e3238e4105145&lang=fr`)
+                .then(response => response.json())
+                .then(json => {
+                    console.log(json.weather[0]["description"])
+                    this.temps = json.weather[0]["description"]
+                })
+                
             }
             else {
-                console.log(this.input_CP);
+                console.log(this.name_city);
             }
         }
       }
